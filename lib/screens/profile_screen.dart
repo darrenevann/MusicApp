@@ -7,58 +7,55 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profil Pengguna'),
-        centerTitle: true,
+        backgroundColor: const Color(0xFFFF66A1), // Pink
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: const Text(
+          'PROFILE',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(color: Colors.black, height: 4.0),
+        ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.blueAccent,
-              child: Icon(Icons.person, size: 60, color: Colors.white),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: const Color(0xFF00E5FF),
+              border: Border.all(color: Colors.black, width: 4),
+              boxShadow: const [
+                BoxShadow(color: Colors.black, offset: Offset(8, 8)),
+              ],
             ),
-            const SizedBox(height: 16),
-            const Text(
-              'Darren Evan Nathanael',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            child: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Info Profil Pengguna
+                Icon(Icons.terminal, size: 80, color: Colors.black),
+                SizedBox(height: 16),
+                Text(
+                  'Darren Evan Nathanael',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Information Systems',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 16),
+                Divider(color: Colors.black, thickness: 2),
+                SizedBox(height: 16),
+                Text(
+                  'GitHub: darrenevann',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+              ],
             ),
-            const Text(
-              'Mahasiswa Sistem Informasi',
-              style: TextStyle(color: Colors.grey),
-            ),
-            const SizedBox(height: 24),
-            const Divider(),
-            const SizedBox(height: 12),
-
-            // Card Detail Informasi
-            Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              child: const Column(
-                children: [
-                  ListTile(
-                    leading: Icon(Icons.school, color: Colors.blueAccent),
-                    title: Text('Universitas'),
-                    subtitle: Text('Universitas Tarumanagara'),
-                  ),
-                  Divider(height: 1),
-                  ListTile(
-                    leading: Icon(Icons.assignment_ind, color: Colors.blueAccent),
-                    title: Text('Program Studi'),
-                    subtitle: Text('Sistem Informasi - Semester 5'),
-                  ),
-                  Divider(height: 1),
-                  ListTile(
-                    leading: Icon(Icons.code, color: Colors.blueAccent),
-                    title: Text('Mata Kuliah'),
-                    subtitle: Text('Pemrograman Mobil (Tugas 5)'),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

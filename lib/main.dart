@@ -1,74 +1,41 @@
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
-import 'screens/profile_screen.dart';
+
+// Notifier global untuk menyimpan status tema (Light/Dark)
+final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
 
 void main() {
-  runApp(const MusicApp());
+  runApp(const MyApp());
 }
 
-class MusicApp extends StatelessWidget {
-  const MusicApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Music Player App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        primaryColor: Colors.deepPurple,
-        scaffoldBackgroundColor: const Color(0xFF121212),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF1F1F1F),
-          elevation: 0,
-        ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF1F1F1F),
-          selectedItemColor: Colors.deepPurpleAccent,
-          unselectedItemColor: Colors.grey,
-        ),
-      ),
-      home: const MainPage(),
-    );
-  }
-}
-
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
-
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  int _currentIndex = 0;
-
-  final List<Widget> _pages = [
-    const HomeScreen(),
-    const ProfileScreen(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.library_music),
-            label: 'Lagu',
+    // Mendengarkan perubahan tema secara real-time
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: themeNotifier,
+      builder: (_, ThemeMode currentMode, __) {
+        return MaterialApp(
+          title: 'Neo Music App',
+          debugShowCheckedModeBanner: false,
+          themeMode: currentMode,
+          // Pengaturan Tema Terang
+          theme: ThemeData(
+            scaffoldBackgroundColor: const Color(0xFFFDFBF7), // Krem terang
+            fontFamily: 'Roboto',
+            brightness: Brightness.light,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profil',
+          // Pengaturan Tema Gelap (Aesthetic Neo-Brutalism)
+          darkTheme: ThemeData(
+            scaffoldBackgroundColor: const Color(0xFF121212), // Hitam pekat
+            fontFamily: 'Roboto',
+            brightness: Brightness.dark,
           ),
-        ],
-      ),
+          home: const HomeScreen(),
+        );
+      },
     );
   }
 }

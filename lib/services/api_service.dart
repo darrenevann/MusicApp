@@ -1,32 +1,41 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import '../models/song_model.dart';
 
-/// Service khusus untuk menangani komunikasi data dengan API luar
 class ApiService {
   static const String baseUrl = 'https://itunes.apple.com/search';
+  static const String lyricsUrl = 'https://api.lyrics.ovh/v1';
 
-  /// Mengambil daftar lagu berdasarkan kata kunci pencarian
-  static Future<List<Song>> fetchSongs(String query) async {
-    final Uri url = Uri.parse('$baseUrl?term=${Uri.encodeComponent(query)}&entity=song&limit=25');
-
+  // Mengambil daftar lagu dari iTunes API
+  Future<List<Song>> fetchSongs(String query) async {
     try {
-      final response = await http.get(url).timeout(const Duration(seconds: 10));
+      final response = await http.get(Uri.parse('$baseUrl?term=$query&entity=song&limit=15'));
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
+        final data = json.decode(response.body);
         final List<dynamic> results = data['results'];
-
-        // Filter data agar hanya mengambil yang memiliki preview URL audio
-        return results
-            .where((item) => item['previewUrl'] != null)
-            .map((json) => Song.fromJson(json))
-            .toList();
+        return results.map((json) => Song.fromJson(json)).toList();
       } else {
-        throw Exception('Gagal memuat data lagu. Status Code: ${response.statusCode}');
+        throw Exception('Gagal memuat data lagu.');
       }
     } catch (e) {
-      throw Exception('Terjadi kesalahan jaringan atau server: $e');
+      throw Exception('Terjadi kesalahan jaringan: $e');
+    }
+  }
+
+  // Mengambil lirik lagu dari Lyrics.ovh API
+  Future<String> fetchLyrics(String artist, String title) async {
+    try {
+      final response = await http.get(Uri.parse('$lyricsUrl/$artist/$title'));
+      
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return data['lyrics'] ?? 'Lirik tidak ditemukan.';
+      } else {
+        return 'Lirik belum tersedia untuk lagu ini.';
+      }
+    } catch (e) {
+      return 'Gagal memuat lirik. Periksa koneksi internet.';
     }
   }
 }
