@@ -1,17 +1,20 @@
-# pertemuan11
+# UT Sound Stream - Music Player App
 
-A new Flutter project.
+Aplikasi pemutar musik sederhana yang dibangun menggunakan **Flutter** untuk memenuhi **Tugas 5 Mobprog - API & Networking**.
 
-## Getting Started
+## 🌟 Fitur Utama
+1. **Fetch & Display API**: Mengambil data lagu secara real-time dari iTunes Search API menggunakan HTTP Request.
+2. **Pencarian & Refresh**: Pencarian lagu dinamis berdasarkan kata kunci serta fitur *pull-to-refresh*.
+3. **Pemutaran Musik Nyata**: Fitur putar/jeda (play/pause), slider durasi lagu, dan tombol skip 10 detik.
+4. **Profil Pengguna**: Menampilkan informasi mahasiswa dan detail mata kuliah.
+5. **Fitur Tambahan**: Penandaan lagu favorit (Favorite Toggle) dan penanganan state (Loading, Error, Data Kosong).
 
-This project is a starting point for a Flutter application.
+## 🛠️ Teknologi & Package
+- **Flutter SDK**
+- **http** (`^1.2.0`): Untuk mengambil data dari API JSON.
+- **audioplayers** (`^6.0.0`): Untuk pemutaran file audio sampel.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 Cara Menjalankan Project
+1. Clone repository ini:
+   ```bash
+   git clone https://github.com/darrenevann/MusicApp.git
